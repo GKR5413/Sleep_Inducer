@@ -12,10 +12,19 @@ final class AuthorizationViewModel: ObservableObject {
     }
 
     func checkCurrentStatus() {
+        #if targetEnvironment(simulator)
+        isAuthorized = true
+        #else
         isAuthorized = AuthorizationCenter.shared.authorizationStatus == .approved
+        #endif
     }
 
     func requestAuthorization() async {
+        #if targetEnvironment(simulator)
+        isAuthorized = true
+        return
+        #endif
+
         isLoading = true
         errorMessage = nil
 
