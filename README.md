@@ -19,6 +19,11 @@ Set it once and forget it. Define your "Bedtime" and "Wake Up" times, and Sleep 
 ### ✅ Allowed Apps Whitelist
 Choose exactly which apps stay accessible. Keep your Phone, Messages, or Meditation apps active while silencing everything else.
 
+### ❤️ HealthKit Insights
+See the real impact on your sleep. Sleep Inducer connects to Apple Health to show:
+- **Sleep Improvement:** A comparative analysis of how much more deep sleep you get on nights you use the app.
+- **Wind-down Reminders:** Real-time heart rate monitoring that suggests starting a session if your stress levels are high before bed.
+
 ### 🌑 Modern Aesthetic
 A beautiful, "Always-Dark" UI featuring:
 - Interactive countdown rings.

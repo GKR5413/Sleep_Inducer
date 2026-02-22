@@ -37,6 +37,8 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_NSHealthShareUsageDescription: "Sleep Inducer uses your health data to show you how app blocking improves your sleep quality."
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: "Sleep Inducer can log sleep data to help you track your progress."
         SWIFT_EMIT_LOC_STRINGS: YES
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
@@ -48,6 +50,8 @@ targets:
       - framework: DeviceActivity.framework
         embed: false
       - framework: ManagedSettings.framework
+        embed: false
+      - framework: HealthKit.framework
         embed: false
 
   SleepInducerMonitor:

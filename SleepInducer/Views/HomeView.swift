@@ -20,6 +20,9 @@ struct HomeView: View {
                 }
                 .padding(.top, 20)
 
+                // Health Insights Card
+                HealthInsightsCard()
+
                 // Start Now Card
                 NavigationLink {
                     ManualSessionView(sessionVM: sessionVM)

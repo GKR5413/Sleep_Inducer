@@ -21,6 +21,7 @@
    - 7.2 SessionViewModel
    - 7.3 ScheduleViewModel
    - 7.4 AllowedAppsViewModel
+   - 7.5 HealthKitManager
 8. [Views](#8-views)
    - 8.1 SleepInducerApp (Entry Point)
    - 8.2 ContentView (Root Router)
@@ -30,6 +31,7 @@
    - 8.6 AllowedAppsView
    - 8.7 ActiveSessionView
    - 8.8 SettingsView
+   - 8.9 HealthInsightsCard
 9. [UI Components](#9-ui-components)
    - 9.1 SleepButton
    - 9.2 CountdownTimerView
@@ -682,6 +684,30 @@ Manages the user's allowed apps selection. The simplest ViewModel.
 **`save()`**
 - Persists the current `activitySelection` to the shared store.
 - Called by `AllowedAppsView` whenever `activitySelection` changes (via `.onChange` modifier).
+
+---
+
+### 7.5 HealthKitManager
+
+**File:** `SleepInducer/Managers/HealthKitManager.swift`
+
+Manages the integration with Apple Health.
+
+#### Published Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `isAuthorized` | `Bool` | Whether HealthKit access has been granted. |
+| `latestHeartRate` | `Double` | The most recent BPM reading. |
+| `sleepImprovementMinutes` | `Int` | Calculated improvement in deep sleep when using the app. |
+
+#### Functions
+
+**`requestAuthorization()`**
+- Prompts the user for access to Sleep Analysis and Heart Rate data.
+
+**`fetchAllData()`**
+- Triggers both `fetchSleepData()` and `fetchLatestHeartRate()`.
 
 ---
 
