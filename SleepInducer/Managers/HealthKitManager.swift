@@ -24,11 +24,10 @@ class HealthKitManager: ObservableObject {
     }
     
     func checkAuthorization() {
-        #if targetEnvironment(simulator)
-        self.isAuthorized = true
-        self.fetchAllData()
-        return
-        #endif
+        guard HKHealthStore.isHealthDataAvailable() else {
+            self.isAuthorized = false
+            return
+        }
 
         let typesToRead: Set = [
             HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
@@ -43,11 +42,10 @@ class HealthKitManager: ObservableObject {
     }
     
     func requestAuthorization() {
-        #if targetEnvironment(simulator)
-        self.isAuthorized = true
-        self.fetchAllData()
-        return
-        #endif
+        guard HKHealthStore.isHealthDataAvailable() else {
+            self.isAuthorized = false
+            return
+        }
 
         let typesToRead: Set = [
             HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
