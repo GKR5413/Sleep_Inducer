@@ -6,13 +6,24 @@ final class AuthorizationViewModel: ObservableObject {
     @Published var isAuthorized = false
     @Published var isLoading = false
     @Published var errorMessage: String?
+    
+    private let provider: any AuthorizationProvider
 
-    init() {
+    init(provider: any AuthorizationProvider = defaultProvider) {
+        self.provider = provider
         checkCurrentStatus()
+    }
+    
+    private static var defaultProvider: any AuthorizationProvider {
+        #if targetEnvironment(simulator)
+        return MockAuthorizationProvider()
+        #else
+        return RealAuthorizationProvider()
+        #endif
     }
 
     func checkCurrentStatus() {
-        isAuthorized = AuthorizationCenter.shared.authorizationStatus == .approved
+        isAuthorized = provider.status == .approved
     }
 
     func requestAuthorization() async {
@@ -20,17 +31,13 @@ final class AuthorizationViewModel: ObservableObject {
         errorMessage = nil
 
         do {
-            try await AuthorizationCenter.shared.requestAuthorization(for: .individual)
-            isAuthorized = AuthorizationCenter.shared.authorizationStatus == .approved
+            try await provider.requestAuthorization()
+            isAuthorized = provider.status == .approved
             if !isAuthorized {
                 errorMessage = "Authorization was not approved. Please enable Screen Time in System Settings."
             }
         } catch {
-            #if targetEnvironment(simulator)
-            errorMessage = "Screen Time APIs are not available in the Simulator. Please use a physical device."
-            #else
-            errorMessage = "Authorization failed: \(error.localizedDescription). Please ensure you have signed in to iCloud."
-            #endif
+            errorMessage = "Authorization failed: \(error.localizedDescription)"
             isAuthorized = false
         }
 
