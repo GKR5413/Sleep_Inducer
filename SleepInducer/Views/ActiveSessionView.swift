@@ -35,7 +35,7 @@ struct ActiveSessionView: View {
                 .foregroundStyle(SleepTheme.lavender.opacity(0.7))
 
                 #if targetEnvironment(simulator)
-                Text("⚠️ Simulation Mode: Shields Inactive")
+                Text("Simulation Mode: Shields Inactive")
                     .font(.caption)
                     .foregroundStyle(SleepTheme.dangerRed)
                     .padding(.top, 4)

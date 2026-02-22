@@ -1,69 +1,70 @@
-# Sleep Inducer 🌙
+# Sleep Inducer
 
-**Sleep Inducer** is a powerful iOS productivity and wellness application designed to help you reclaim your sleep by physically limiting digital distractions. Built using Apple's modern Screen Time APIs (`FamilyControls`, `ManagedSettings`, and `DeviceActivity`), it provides a robust, system-level block that helps you stay away from addictive apps and websites when it's time to rest.
-
----
-
-## 🚀 Key Features
-
-### ⏱️ Manual Sleep Sessions
-Quickly start a focus block for a set duration (30m to 8h). Perfect for naps, reading time, or an earlier-than-usual bedtime.
-
-### 📅 Nightly Recurring Schedule
-Set it once and forget it. Define your "Bedtime" and "Wake Up" times, and Sleep Inducer will automatically engage the shields every single night.
-
-### 🛡️ Strict vs. Flexible Modes
-- **Strict Mode:** No escape. Once the session starts, the "Cancel" button is removed. You must wait for the timer to expire.
-- **Flexible Mode:** Includes a mandatory **30-second delay** for cancellations, forcing you to think twice before breaking your sleep goal.
-
-### ✅ Allowed Apps Whitelist
-Choose exactly which apps stay accessible. Keep your Phone, Messages, or Meditation apps active while silencing everything else.
-
-### ❤️ HealthKit Insights
-See the real impact on your sleep. Sleep Inducer connects to Apple Health to show:
-- **Sleep Improvement:** A comparative analysis of how much more deep sleep you get on nights you use the app.
-- **Wind-down Reminders:** Real-time heart rate monitoring that suggests starting a session if your stress levels are high before bed.
-
-### 🌑 Modern Aesthetic
-A beautiful, "Always-Dark" UI featuring:
-- Interactive countdown rings.
-- Glowing moon iconography.
-- Fluid, animated transitions.
-- Intuitive card-based navigation.
+**Sleep Inducer** is a sophisticated iOS productivity and wellness application designed to improve sleep quality by physically limiting digital distractions. Built using Apple's modern Screen Time APIs (`FamilyControls`, `ManagedSettings`, and `DeviceActivity`), it provides a robust, system-level block that helps users stay away from addictive apps and websites during designated rest periods.
 
 ---
 
-## 🛠️ Technical Architecture
+## Key Features
 
-Sleep Inducer is built with a robust **MVVM** (Model-View-ViewModel) architecture and leverages a multi-process strategy to ensure blocks are enforced even if the app is closed.
+### Manual Sleep Sessions
+Quickly initiate a focus block for a specific duration (30 minutes to 8 hours). Suitable for naps, focused reading, or an earlier-than-usual bedtime.
 
-### 1. Main App Target (`SleepInducer`)
-Handles the user interface, session configuration, and authorization. It communicates with the system to schedule "Device Activity" windows.
+### Nightly Recurring Schedule
+Automated scheduling for consistent sleep hygiene. Define "Bedtime" and "Wake Up" times, and Sleep Inducer will automatically engage the system shields every night.
 
-### 2. Monitor Extension Target (`SleepInducerMonitor`)
-A system-managed process that runs in the background. It is triggered by iOS at the start and end of every scheduled interval to apply or remove shields, ensuring high reliability even if the main app is force-quit.
+### Strict vs. Flexible Modes
+- **Strict Mode:** Ensures total commitment. Once the session starts, the cancellation option is disabled until the timer expires.
+- **Flexible Mode:** Includes a mandatory 30-second delay for cancellations to discourage impulsive use.
+
+### Allowed Apps Whitelist
+Granular control over accessible content. Maintain access to essential tools like Phone, Messages, or Meditation apps while blocking all other distractions.
+
+### HealthKit Insights
+Quantifiable impact on sleep quality. Sleep Inducer integrates with Apple Health to provide:
+- **Sleep Improvement:** Comparative analysis of deep sleep duration on nights when the app is active.
+- **Wind-down Reminders:** Heart rate monitoring that suggests starting a session if elevated stress levels are detected before bedtime.
+
+### Modern Architecture
+A professional, "Always-Dark" user interface featuring:
+- High-precision countdown timers.
+- Integrated HealthKit dashboards.
+- Fluid, system-native transitions.
+- Scalable card-based navigation.
+
+---
+
+## Technical Architecture
+
+Sleep Inducer is built with a robust **MVVM** (Model-View-ViewModel) architecture and utilizes a multi-process strategy to ensure blocks are enforced regardless of the app's state.
+
+### 1. Main App Target (SleepInducer)
+Responsible for the user interface, session configuration, and authorization. It manages the scheduling of Device Activity windows with the system.
+
+### 2. Monitor Extension Target (SleepInducerMonitor)
+A system-managed process that runs independently of the main app. It is triggered by iOS at the start and end of every scheduled interval to apply or remove shields, ensuring high reliability.
 
 ### 3. Shared Layer
-A synchronized data layer using **App Groups** and **UserDefaults** to share session state, allowed app selections, and schedule configurations between the app and the extension.
+A synchronized data layer using **App Groups** and **UserDefaults** to share session state, allowed app selections, and schedule configurations between the primary app and the background extension.
 
 ---
 
-## 🧬 Frameworks & APIs
+## Frameworks & APIs
 
 | Framework | Purpose |
 |-----------|---------|
-| **FamilyControls** | Securely requests Screen Time permissions and provides the native app-picker UI. |
-| **ManagedSettings** | Enforces the actual blocks on apps, categories, and web domains at the system level. |
-| **DeviceActivity** | Schedules the background callbacks that trigger the start and end of sleep sessions. |
-| **SwiftUI** | Powers the modern, reactive user interface and theme system. |
+| **FamilyControls** | Manages Screen Time permissions and provides the native application selection interface. |
+| **ManagedSettings** | Enforces system-level blocks on applications, categories, and web domains. |
+| **DeviceActivity** | Handles the background scheduling for the start and end of sleep sessions. |
+| **HealthKit** | Integrates biometric and sleep data for performance tracking. |
+| **SwiftUI** | Powers the reactive user interface and theme system. |
 
 ---
 
-## 📦 Requirements & Setup
+## Requirements & Setup
 
 - **iOS 17.0+**
-- **Physical Device Required:** Screen Time APIs do not function in the iOS Simulator.
-- **Entitlements:** Requires the `FamilyControls` and `App Groups` entitlements from the Apple Developer Portal.
+- **Physical Device Required:** Screen Time APIs are not functional within the iOS Simulator.
+- **Entitlements:** Requires `FamilyControls` and `App Groups` entitlements.
 
 ### Development Setup
 1. Clone the repository:
@@ -74,18 +75,18 @@ A synchronized data layer using **App Groups** and **UserDefaults** to share ses
    ```bash
    xcodegen generate
    ```
-3. Open `SleepInducer.xcodeproj` and sign the targets with your development team.
-4. Run the app on a physical iPhone.
+3. Open `SleepInducer.xcodeproj` and configure the targets with a valid development team.
+4. Deploy the application to a physical iPhone.
 
 ---
 
-## 📝 Usage Guide
+## Usage Guide
 
-1. **Grant Access:** Upon first launch, tap "Grant Access" to authorize Screen Time permissions.
-2. **Configure Allowed Apps:** Go to "Allowed Apps" to select which tools (like Music or Phone) should remain unblocked.
-3. **Start a Session:** Use the "Start Now" card for a manual block or "Nightly Schedule" to automate your sleep hygiene.
-4. **Emergency Reset:** If you are ever stuck, an Emergency Reset is available in the Settings menu.
+1. **Authorization:** Upon initial launch, authorize Screen Time permissions.
+2. **Configuration:** Select essential applications in the "Allowed Apps" section.
+3. **Session Activation:** Use the "Start Now" feature for manual blocks or the "Nightly Schedule" for automated enforcement.
+4. **Emergency Reset:** An emergency override is available within the Settings menu if required.
 
 ---
 
-Developed with ❤️ to help you sleep better.
+Developed to support healthier digital habits and improved rest.
