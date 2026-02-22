@@ -7,6 +7,9 @@ struct ManualSessionView: View {
     @State private var selectedDuration: Int = 60
     @State private var strictness: StrictnessMode = SharedSessionStore.shared.loadDefaultStrictness()
 
+    @State private var isCustomDuration = false
+    @State private var customMinutes: Int = 45
+
     private let durations: [(label: String, minutes: Int)] = [
         ("30m", 30),
         ("1h", 60),
@@ -29,24 +32,61 @@ struct ManualSessionView: View {
                         ForEach(durations, id: \.minutes) { duration in
                             Button {
                                 selectedDuration = duration.minutes
+                                isCustomDuration = false
                             } label: {
                                 Text(duration.label)
                                     .font(.body.weight(.medium))
                                     .frame(maxWidth: .infinity)
                                     .padding(.vertical, 14)
                                     .background(
-                                        selectedDuration == duration.minutes
+                                        (!isCustomDuration && selectedDuration == duration.minutes)
                                             ? AnyShapeStyle(SleepTheme.buttonGradient)
                                             : AnyShapeStyle(Color.white.opacity(0.08))
                                     )
                                     .foregroundStyle(
-                                        selectedDuration == duration.minutes
+                                        (!isCustomDuration && selectedDuration == duration.minutes)
                                             ? .white
                                             : SleepTheme.lavender
                                     )
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                             }
                         }
+                    }
+                    
+                    // Custom Duration Stepper
+                    Button {
+                        isCustomDuration = true
+                    } label: {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Custom Duration")
+                                    .font(.body.weight(.medium))
+                                    .foregroundStyle(SleepTheme.softWhite)
+                                Text("\(customMinutes) minutes")
+                                    .font(.caption)
+                                    .foregroundStyle(SleepTheme.lavender.opacity(0.6))
+                            }
+                            Spacer()
+                            Stepper("", value: $customMinutes, in: 1...1440)
+                                .labelsHidden()
+                                .onChange(of: customMinutes) {
+                                    isCustomDuration = true
+                                }
+                        }
+                        .padding()
+                        .background(
+                            isCustomDuration
+                                ? Color.white.opacity(0.08)
+                                : Color.white.opacity(0.03)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(
+                                    isCustomDuration ? SleepTheme.indigo.opacity(0.5) : Color.clear,
+                                    lineWidth: 1
+                                )
+                        )
                     }
                 }
 
@@ -94,7 +134,8 @@ struct ManualSessionView: View {
 
                 // Start Button
                 SleepButton("Start Sleep Session", icon: "moon.fill") {
-                    sessionVM.startManualSession(durationMinutes: selectedDuration, strictness: strictness)
+                    let finalDuration = isCustomDuration ? customMinutes : selectedDuration
+                    sessionVM.startManualSession(durationMinutes: finalDuration, strictness: strictness)
                 }
                 .padding(.top, 8)
             }
