@@ -8,19 +8,20 @@ protocol HealthKitProvider: Sendable {
 }
 
 struct RealHealthKitProvider: HealthKitProvider {
-    private let healthStore = HKHealthStore()
+    // HKHealthStore should be long-lived for efficiency
+    private static let healthStore = HKHealthStore()
     
     func isHealthDataAvailable() -> Bool {
         HKHealthStore.isHealthDataAvailable()
     }
     
     func requestAuthorization(toShare: Set<HKSampleType>, read: Set<HKObjectType>) async throws -> Bool {
-        try await healthStore.requestAuthorization(toShare: toShare, read: read)
+        try await Self.healthStore.requestAuthorization(toShare: toShare, read: read)
         return true
     }
     
     func execute(_ query: HKQuery) {
-        healthStore.execute(query)
+        Self.healthStore.execute(query)
     }
 }
 

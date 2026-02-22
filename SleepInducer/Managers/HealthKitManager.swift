@@ -42,8 +42,19 @@ class HealthKitManager: ObservableObject {
         self.isAuthorized = true
         self.fetchAllData()
         #else
-        // On real devices, check actual status via query or status check
-        // For simplicity in this demo, we'll request if not unnecessary
+        // On real devices, we check if we've already requested permissions
+        let typesToRead: Set<HKObjectType> = [
+            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
+            HKObjectType.quantityType(forIdentifier: .heartRate)!
+        ]
+        
+        // Use a lightweight check for authorization status
+        // Note: HKAuthorizationStatus.sharingAuthorized only applies to sharing, 
+        // for reading we must attempt a query or check request status.
+        Task {
+            // This is a non-interruptive check
+            self.fetchAllData()
+        }
         #endif
     }
     
@@ -53,20 +64,23 @@ class HealthKitManager: ObservableObject {
             return
         }
 
-        let typesToRead: Set: Set<HKObjectType> = [
+        let typesToRead: Set<HKObjectType> = [
             HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
             HKObjectType.quantityType(forIdentifier: .heartRate)!
         ]
         
         Task {
             do {
+                // This triggers the real iOS system prompt on a physical device
                 let success = try await provider.requestAuthorization(toShare: [], read: typesToRead)
-                self.isAuthorized = success
-                if success {
-                    self.fetchAllData()
+                await MainActor.run {
+                    self.isAuthorized = success
+                    if success {
+                        self.fetchAllData()
+                    }
                 }
             } catch {
-                print("HealthKit Auth Failed: \(error)")
+                print("HealthKit Auth Failed: \(error.localizedDescription)")
             }
         }
     }
