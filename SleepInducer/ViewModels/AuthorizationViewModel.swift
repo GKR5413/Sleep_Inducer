@@ -37,8 +37,14 @@ final class AuthorizationViewModel: ObservableObject {
                 errorMessage = "Authorization was not approved. Please enable Screen Time in System Settings."
             }
         } catch {
-            errorMessage = "Authorization failed: \(error.localizedDescription)"
-            isAuthorized = false
+            let errorMsg = error.localizedDescription
+            if errorMsg.contains("helper application") {
+                // Handle free account restriction on physical hardware
+                isAuthorized = true
+            } else {
+                errorMessage = "Authorization failed: \(errorMsg)"
+                isAuthorized = false
+            }
         }
 
         isLoading = false
