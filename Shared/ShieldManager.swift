@@ -11,14 +11,17 @@ final class ShieldManager: @unchecked Sendable {
     
     /// Blocks all applications except the ones in the provided selection.
     func activateShield(allowing selection: FamilyActivitySelection) {
-        let applications = selection.applicationTokens
-        let categories = selection.categoryTokens
+        // Clear previous settings to ensure a clean state
+        store.clearAllSettings()
         
-        // Block everything except specific allowed apps/categories
-        // This is the most battery-efficient way to handle system-level blocking
-        store.shield.applications = .all(except: applications)
-        store.shield.applicationCategories = .all(except: categories)
-        store.shield.webDomains = .all()
+        // Shield specific individual applications
+        store.shield.applications = selection.applicationTokens.isEmpty ? nil : selection.applicationTokens
+        
+        // Shield specific categories
+        store.shield.applicationCategories = selection.categoryTokens.isEmpty ? nil : .specific(selection.categoryTokens)
+        
+        // Shield all web domains
+        store.shield.webDomains = selection.webDomainTokens.isEmpty ? nil : selection.webDomainTokens
     }
 
     /// Removes all shields and clears managed settings.

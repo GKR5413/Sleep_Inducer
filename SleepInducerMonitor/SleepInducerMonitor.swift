@@ -11,13 +11,15 @@ class SleepInducerMonitor: DeviceActivityMonitor {
 
         // Load allowed apps from shared store and activate shields
         let selection = SharedSessionStore.shared.loadAllowedApps()
-        let applications = selection.applicationTokens
-        let categories = selection.categoryTokens
 
-        // System-level blocking is highly optimized by iOS
-        store.shield.applications = .all(except: applications)
-        store.shield.applicationCategories = .all(except: categories)
-        store.shield.webDomains = .all()
+        // Shield specific individual applications
+        store.shield.applications = selection.applicationTokens.isEmpty ? nil : selection.applicationTokens
+        
+        // Shield specific categories
+        store.shield.applicationCategories = selection.categoryTokens.isEmpty ? nil : .specific(selection.categoryTokens)
+        
+        // Shield specific web domains
+        store.shield.webDomains = selection.webDomainTokens.isEmpty ? nil : selection.webDomainTokens
     }
 
     override func intervalDidEnd(for activity: DeviceActivityName) {

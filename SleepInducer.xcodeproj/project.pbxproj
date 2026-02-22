@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -83,7 +83,7 @@
 		391C2682044819491FE20403 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3E78086134481DFC03F2F1BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4763CAE95AF00B08549F57E0 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
-		4BAEB6E3CB554AB1CEE7250A /* SleepInducerMonitor.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SleepInducerMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BAEB6E3CB554AB1CEE7250A /* SleepInducerMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SleepInducerMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		574DEE9E25C72F8AF81F7007 /* FamilyControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FamilyControls.framework; sourceTree = "<group>"; };
 		5B7DB9CAD812668ADCF3515B /* SleepButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepButton.swift; sourceTree = "<group>"; };
 		618068BD9F8AC562AF3FB448 /* ScheduleMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMode.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		AA37005390A823D301D7B065 /* ShieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldManager.swift; sourceTree = "<group>"; };
 		B1C577F81A2B37A7E64E8251 /* AllowedAppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowedAppsView.swift; sourceTree = "<group>"; };
 		C58A356A3F2B911FE5D3B003 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ManagedSettings.framework; sourceTree = "<group>"; };
-		CA512DCEA7918403B54DE787 /* SleepInducer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SleepInducer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA512DCEA7918403B54DE787 /* SleepInducer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepInducer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D070301E8CC4F41625C18A6A /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		D2CAAED063F384ACCD1C6AEC /* StrictnessMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrictnessMode.swift; sourceTree = "<group>"; };
 		DAF6879432CFCA44C8B90A8F /* SleepTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTheme.swift; sourceTree = "<group>"; };
@@ -316,7 +316,6 @@
 			);
 			mainGroup = 304EFDC8F35DB575346ABC3F;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -513,6 +512,7 @@
 				CODE_SIGN_ENTITLEMENTS = SleepInducer/SleepInducer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9C2K5KLG6Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\".\"",
@@ -543,6 +543,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SleepInducerMonitor/SleepInducerMonitor.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9C2K5KLG6Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\".\"",
@@ -572,6 +573,7 @@
 				CODE_SIGN_ENTITLEMENTS = SleepInducer/SleepInducer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9C2K5KLG6Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\".\"",
@@ -602,6 +604,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SleepInducerMonitor/SleepInducerMonitor.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9C2K5KLG6Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\".\"",
