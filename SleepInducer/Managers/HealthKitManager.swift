@@ -1,6 +1,7 @@
 import Foundation
 import HealthKit
 
+@MainActor
 class HealthKitManager: ObservableObject {
     static let shared = HealthKitManager()
     
@@ -23,6 +24,12 @@ class HealthKitManager: ObservableObject {
     }
     
     func checkAuthorization() {
+        #if targetEnvironment(simulator)
+        self.isAuthorized = true
+        self.fetchAllData()
+        return
+        #endif
+
         let typesToRead: Set = [
             HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
             HKObjectType.quantityType(forIdentifier: .heartRate)!
@@ -36,6 +43,12 @@ class HealthKitManager: ObservableObject {
     }
     
     func requestAuthorization() {
+        #if targetEnvironment(simulator)
+        self.isAuthorized = true
+        self.fetchAllData()
+        return
+        #endif
+
         let typesToRead: Set = [
             HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
             HKObjectType.quantityType(forIdentifier: .heartRate)!
